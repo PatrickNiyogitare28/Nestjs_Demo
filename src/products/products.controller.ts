@@ -5,15 +5,13 @@ import { ProductsService } from './products.service';
     export class ProductsController{
         constructor(private readonly productService: ProductsService){}
         @Post()
-        addProduct(
+        async addProduct(
             @Body('title') prodTitle: string,
             @Body('description') prodDescription: string,
             @Body('price') prodPrice: number
         ){
-          const generatedId =   this.productService.insertProduct(prodTitle,prodDescription,prodPrice);
-            return {
-                id: generatedId
-            }
+          const result =   await this.productService.insertProduct(prodTitle,prodDescription,prodPrice);
+          return result
         }
 
         @Get()
@@ -30,20 +28,21 @@ import { ProductsService } from './products.service';
         }
 
         @Patch(':id')
-        updateProduct(
+        async updateProduct(
             @Param('id') id: string,
             @Body('title') title: string,
             @Body('description') desc: string,
             @Body('price') price: number
         ){
-         return this.productService.updateProduct(id,title,desc,price);
+         const updateProduct = await this.productService.updateProduct(id,title,desc,price);
+         return updateProduct;
         }
 
         @Delete(':id')
-        removeProduct(
+        async removeProduct(
             @Param('id') id: string
         ){
-            const removedProduct = this.productService.removeProduct(id);
+            const removedProduct = await this.productService.removeProduct(id);
             return {
                 success: true,
                 message: 'Product Removed',
