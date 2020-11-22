@@ -12,4 +12,12 @@ export class UsersController{
     ){
       return this.usersService.createUser(name,email,password)
     }
+
+    @Post('login')
+    async loginUser(
+      @Body('email') email: string,
+      @Body('password') password: string
+    ){
+     return await this.usersService.loginUser(email,password);
+    }
 }

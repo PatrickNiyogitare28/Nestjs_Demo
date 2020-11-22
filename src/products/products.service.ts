@@ -9,8 +9,7 @@ export class ProductsService{
     products: Product[] = [];
 
     async insertProduct(title: string, descri: string, price: number){
-        const prodId = Math.random().toString();
-        const newProduct = new this.productModel({
+       const newProduct = new this.productModel({
             title,
             description:descri,
             price
