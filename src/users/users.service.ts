@@ -6,7 +6,11 @@ export class UsersService{
    constructor(@InjectModel('User') private readonly userModel: Model<User>){}
     users:User[] = [];
 
-    async createUser(name:string, email: string, password: string){
+    async createUser(data: any){
+      let name  = data.name;
+      let email = data.email;
+      let password = data.password;
+      
       const user = await this.userModel.findOne({email: email});
       if(user)
       throw new NotAcceptableException('User aready exist.');
